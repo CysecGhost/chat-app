@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "ts-node server.ts",
+    "dev": "ts-node --transpile-only server.ts",
     "build": "next build",
     "start": "NODE_ENV=production ts-node server.ts",
     "lint": "next lint"

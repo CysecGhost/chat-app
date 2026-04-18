@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { Conversation } from "@/lib/models/Conversation";
 import { getSession } from "@/lib/auth";
+import mongoose from "mongoose";
 
 export const GET = async () => {
   const session = await getSession();
@@ -14,7 +15,7 @@ export const GET = async () => {
 
   // find conversations of user
   const conversations = await Conversation.find({
-    participants: session.user.id,
+    participants: new mongoose.Types.ObjectId(session.user.id),
   });
 
   return NextResponse.json({ conversations }, { status: 200 });
@@ -34,14 +35,22 @@ export const POST = async (req: NextRequest) => {
 
   //   check if conversation already exists to avoid duplicate chats
   const exists = await Conversation.findOne({
-    participants: { $all: [session.user.id, participantId] },
+    participants: {
+      $all: [
+        new mongoose.Types.ObjectId(session.user.id),
+        new mongoose.Types.ObjectId(participantId),
+      ],
+    },
   });
 
   if (exists) return NextResponse.json({ exists });
 
   // create new conversation
   const conversation = await Conversation.create({
-    participants: [session.user.id, participantId],
+    participants: [
+      new mongoose.Types.ObjectId(session.user.id),
+      new mongoose.Types.ObjectId(participantId),
+    ],
   });
 
   return NextResponse.json({ conversation });
