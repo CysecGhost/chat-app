@@ -1,12 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { cookies } from "next/headers";
-
-type Conversation = {
-  _id: string;
-  participants: string[];
-  lastMessage: string;
-  updatedAt: string;
-};
+import { Conversation } from "@/types";
+import ConversationList from "@/components/ConversationList";
 
 const Dashboard = async () => {
   const session = await getSession();
@@ -31,15 +26,11 @@ const Dashboard = async () => {
 
   const { conversations } = await res.json();
 
-  console.log(conversations);
-
   return (
     <div>
       <h1>Dashboard</h1>
 
-      {conversations.map((item: Conversation) => (
-        <div key={item._id}>{item.lastMessage}</div>
-      ))}
+      <ConversationList conversations={conversations}></ConversationList>
     </div>
   );
 };
