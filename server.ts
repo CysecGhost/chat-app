@@ -20,6 +20,10 @@ app.prepare().then(() => {
       socket.join(conversationId);
     });
 
+    socket.on("leave_conversation", (conversationId: string) => {
+      socket.leave(conversationId);
+    });
+
     socket.on("disconnect", () => {
       console.log("User disconnected: ", socket.id);
     });

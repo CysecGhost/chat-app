@@ -1,11 +1,21 @@
 import { Message } from "@/types";
 import { cookies } from "next/headers";
+import { getSession } from "@/lib/auth";
+import MessageInput from "@/components/MessageInput";
+import MessageThread from "@/components/MessageThread";
 
 const ChatPage = async ({
   params,
 }: {
   params: Promise<{ conversationId: string }>;
 }) => {
+  const session = await getSession();
+
+  if (!session) {
+    console.error("Unauthenticated");
+    return;
+  }
+
   const { conversationId } = await params;
 
   const cookieStore = await cookies();
@@ -27,12 +37,11 @@ const ChatPage = async ({
     <div>
       <h1 className="text-3xl font-bold">Messages</h1>
 
-      {messages.map((item: Message) => (
-        <div key={item._id}>
-          <h3>{item.senderId}</h3>
-          <p>{item.text}</p>
-        </div>
-      ))}
+      <MessageThread
+        initialMessages={messages}
+        conversationId={conversationId}
+      ></MessageThread>
+      <MessageInput conversationId={conversationId}></MessageInput>
     </div>
   );
 };

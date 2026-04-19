@@ -1,6 +1,5 @@
 import { getSession } from "@/lib/auth";
 import { cookies } from "next/headers";
-import { Conversation } from "@/types";
 import ConversationList from "@/components/ConversationList";
 
 const Dashboard = async () => {
