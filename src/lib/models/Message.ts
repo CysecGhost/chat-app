@@ -9,7 +9,7 @@ const messageSchema = new mongoose.Schema(
     senderId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     text: String,
   },
-  { timestamps: true },
+  { timestamps: true, toJSON: { virtuals: true } },
 );
 
 export const Message =

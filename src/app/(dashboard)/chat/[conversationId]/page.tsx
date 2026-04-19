@@ -1,4 +1,3 @@
-import { Message } from "@/types";
 import { cookies } from "next/headers";
 import { getSession } from "@/lib/auth";
 import MessageInput from "@/components/MessageInput";
@@ -34,9 +33,7 @@ const ChatPage = async ({
   const { messages } = await res.json();
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Messages</h1>
-
+    <div className="h-full overflow-y-scroll">
       <MessageThread
         initialMessages={messages}
         conversationId={conversationId}

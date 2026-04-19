@@ -39,48 +39,60 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl font-bold">Login</h1>
+    <div className="flex items-center justify-center h-screen bg-[#0a0a0a]">
+      <div className="w-full max-w-sm border border-[#00ff88]/20 p-8 bg-[#0d0d0d]">
+        <h1 className="text-2xl font-bold tracking-widest uppercase text-[#00ff88] mb-1 [font-family:var(--font-syne)]">
+          LOGIN
+        </h1>
+        <p className="text-[#ffffff30] text-xs mb-8 [font-family:var(--font-mono)]">
+          enter credentials to continue
+        </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="w-full">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-xs text-[#ffffff50] mb-2 [font-family:var(--font-mono)]">
+              EMAIL
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full bg-[#111111] border border-[#ffffff15] hover:border-[#00ff88]/30 focus:border-[#00ff88]/60 outline-none px-4 py-3 text-sm text-white placeholder-[#ffffff20] [font-family:var(--font-mono)] transition-colors"
+              placeholder="ghost@mail.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs text-[#ffffff50] mb-2 [font-family:var(--font-mono)]">
+              PASSWORD
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full bg-[#111111] border border-[#ffffff15] hover:border-[#00ff88]/30 focus:border-[#00ff88]/60 outline-none px-4 py-3 text-sm text-white placeholder-[#ffffff20] [font-family:var(--font-mono)] transition-colors"
+              placeholder="••••••••"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-[#00ff88] text-black text-sm font-bold tracking-widest [font-family:var(--font-mono)] hover:bg-[#00ff88]/80 transition-colors disabled:opacity-30 mt-2"
           >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-12 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-        <div className="w-full">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-12 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          Login
-        </button>
-      </form>
+            {loading ? "AUTHENTICATING..." : "LOGIN"}
+          </button>
+        </form>
+
+        <p className="text-center text-xs text-[#ffffff30] mt-6 [font-family:var(--font-mono)]">
+          no account?{" "}
+          <a href="/signup" className="text-[#00ff88] hover:underline">
+            signup
+          </a>
+        </p>
+      </div>
     </div>
   );
 };

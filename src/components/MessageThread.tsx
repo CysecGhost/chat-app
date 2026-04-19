@@ -26,17 +26,23 @@ const MessageThread = ({
     return () => {
       // leave the conversation room
       socket.emit("leave_conversation", conversationId);
-
+      // stop listening
       socket.off("new_message");
     };
   }, [conversationId]);
 
   return (
-    <div>
+    <div className="flex-1 overflow-y-auto p-6 space-y-3 min-h-0">
       {messages.map((item: Message) => (
-        <div key={item._id}>
-          <h3>{item.senderId}</h3>
-          <p>{item.text}</p>
+        <div key={item._id} className="flex flex-col items-start">
+          <span className="text-[10px] text-[#ffffff70] mt-1 [font-family:var(--font-mono)]">
+            {item.senderId}
+          </span>
+          <div className="bg-[#111111] border border-[#ffffff10] px-4 py-2 max-w-sm">
+            <p className="text-sm text-[#ffffffcc] [font-family:var(--font-mono)]">
+              {item.text}
+            </p>
+          </div>
         </div>
       ))}
     </div>
